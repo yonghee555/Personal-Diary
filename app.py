@@ -68,8 +68,8 @@ def register():
 
 @app.route('/diary/<diaryId>', methods=['GET'])
 def show_diary(diaryId):
-    diary = DB.diaries.find_one({'_id' : diaryId})
-    # TODO: diary 보기 페이지 구현
+    diary = DB.diaries.find_one({'_id' : ObjectId(diaryId)})
+    return render_template('detail.html', diary = diary)
 
 @app.route('/diary/add', methods=['GET', 'POST'])
 def add_diary():
@@ -77,7 +77,6 @@ def add_diary():
         return render_template('index.html')
     if request.method == 'POST':
         f = request.files['file']
-        # filename = secure_filename(f.filename)
         storage.save_file(f.filename, f)
         post = {
             "name": session['username'],
@@ -91,13 +90,29 @@ def add_diary():
     else:
         return render_template('write.html')
 
-@app.route("/diary/edit/<diaryId>")
+@app.route("/diary/edit/<diaryId>", methods = ['GET', 'POST'])
 def edit_diary(diaryId):
     diary = DB.diaries.find_one({"_id": ObjectId(diaryId)})
+    former_filename = diary["filename"]
     if session['username'] == diary["name"]:
-        return render_template('update.html', diary = diary)
+        if request.method == 'POST':
+            f = request.files['file']
+            if f.filename != former_filename and f.filename != "":
+                storage.save_file(f.filename, f)
+                DB.diaries.update_one({'_id': ObjectId(diaryId)}, {'$set': {
+                    "title": request.form['title'],
+                    "content": request.form['content'],
+                    "filename": f.filename
+                }})
+            else:
+                DB.diaries.update_one({'_id': ObjectId(diaryId)}, {'$set': {
+                    "title": request.form['title'],
+                    "content": request.form['content']
+                }})
+        else:
+            return render_template('update.html', diary = diary)
     else:
-        flash("삭제 권한이 없습니다.")
+        flash("수정 권한이 없습니다.")
     return redirect(url_for('index'))
 
 
@@ -106,11 +121,14 @@ def delete_diary(diaryId):
     diary = DB.diaries.find_one({"_id": ObjectId(diaryId)})
     if session['username'] == diary["name"]:
         DB.diaries.delete_one({"_id": ObjectId(diaryId)})
-        flash("삭제 되었습니다.")
     else:
         flash("삭제 권한이 없습니다.")
     return redirect(url_for('index'))
 
+
+@app.route("/diary/showimage/<filename>")
+def show_image(filename):
+    return storage.send_file(filename)
 
 if __name__ == "__main__":
     app.run(debug=True)

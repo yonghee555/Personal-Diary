@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block contents %}
+<div class="detail_box">
+	<div class="detail_box_title">
+		<h1>{{diary.title}}</h1>
+	</div>
+	<div class="detail_box_uid">
+		<h5>작성자: {{diary.name}}</h5>
+	</div>
+	<div class="detail_box_contents">
+		<h3>{{diary.content}}</h3>
+	</div>
+	{% if diary['filename'] != '' %}
+	<div class="detail_box_image" style="width: 300px; height: 300px; overflow: hidden;">
+		<p><img src="{{url_for('show_image', filename=diary.filename)}}" width="200"/></p>
+	</div>
+	{% endif %}
+</div>
+<div class="detail_delete_edit">
+	<form action="{{url_for('edit_diary',diaryId=diary._id)}}">
+		<button type="submit">수정</button>
+	</form>
+	<form action="{{url_for('delete_diary',diaryId=diary._id)}}">
+		<button type="submit">삭제</button>
+	</form>
+</div>
+<br>
+<form action="{{url_for('index')}}">
+	<button type="submit">돌아가기</button>
+</form>	
+{% endblock contents %}
