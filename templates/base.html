@@ -1,30 +1,25 @@
 <!DOCTYPE html>
 <head>
 	<title>
-		YH Diary
+		YH's Diary
 	</title>
 </head>
 <body>
 	<header class="header">
 		<div class="header_title">
-			<div class="signin">
-				<a href="{{url_for('register')}}">회원가입</a>
+			{% if 'username' in session %}
+			<div class="signin" style="text-align:right">
+				<a href="{{url_for('logout')}}">로그아웃</a>
 			</div>
+			{% endif %}
 			<a href="{{url_for('index')}}">
-				<h1>YH Diary</h1>
+				<h1 style="text-align: center">YH's Diary</h1>
 			</a>
-		</div>
-		<div class="default">
-			<a href="{{url_for('index')}}">일기 목록</a>
 		</div>
 	</header>
 	<div class="body">
 		{% block contents %}
 
 		{% endblock contents %}
-
-		{% block message %}
-
-		{% endblock message %}
 	</div>
 </body>

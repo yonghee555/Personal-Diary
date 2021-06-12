@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+{% extends 'base.html' %}
+{% block contents %}
 
 <head>
 	<meta charset="UTF-8">
@@ -23,10 +25,11 @@
 				<label for="content">내용</label>
 				<textarea class="form-control" rows="15" id="content" name="content" placeholder="내용 작성"></textarea>
 			</div>
-			<br><input type = "file" name = "file" />
+			<br><input type = "file" name = "file" class="btn btn-default"/>
 			<button type="submit" class="btn btn-default">등록</button>
+			<button onclick="location.href='/'" class="btn btn-default">취소</button>
 		</form>
 	</div>
 </body>
-
+{% endblock %}
 </html>

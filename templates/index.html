@@ -1,13 +1,69 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>HTML for python flask</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YH's Diary</title>
+    <link rel="stylesheet" href="static/main.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css" />
+    <meta name="theme-color" content="#1abc9c">
 </head>
- 
+
 <body>
-        <p>로그인이 필요한 서비스입니다.</p>
-        <a href= "login">로그인창으로</a><br>
-        <a href= "register">회원가입</a>
+    <div id="header">
+        <div class="container">
+            <a href="{{url_for('index')}}" id="header-title">YH's Diary</a>
+            <ul id="header-nav">
+                <li><a href="{{url_for('logout')}}">로그아웃</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="content">
+        <div class="post-container">
+            <div class="post">
+                <div class="post-author">
+                    <span>Bharat Agarwal</span>
+                </div>
+                <p class="post-date">Today</p>
+                <h3 class="post-title">Becoming a web Developer</h3>
+                <div class="post-content">
+                    <p>Somebody told me a week ago that when I start learning Web-Development,That I can make good
+                        websites, I have not believed him.</p>
+                    <p>Just a few days later, I came across <strong>w3schools</strong> and started to work on my Skills
+                        and I found That that person is correct, and now I am full-stack Web Developer</p>
+                </div>
+            </div>
+        </div>
+        <div class="post-container">
+            <div class="post">
+                <div class="post-author">
+                    <span>Bharat Agarwal</span>
+                </div>
+                <p class="post-date">Today</p>
+                <h3 class="post-title">How I become Web Developer ?</h3>
+                <div class="post-content">
+                    <p>Firstly I would like to thanks <a href="https://w3schools.com">W3Schools</a>, From this website I
+                        started learning, </p>
+                    <p>This Website makes me learn from a noob to advanced. After completing this I am able to make my
+                        own first website.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <div class="column">
+                <h4>I AM</h4>
+                <p>
+                    Dongguk University <br>
+                    Information & Communication Engineering<br>
+                    이용희 <br><br>
+                    <a href="https://github.com/yonghee555">My Github</a>
+                </p>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

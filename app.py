@@ -5,7 +5,6 @@ from flask_pymongo import PyMongo
 import datetime
 
 DB = mongodb()
-
 app = Flask(__name__)
 app.secret_key = 'software_engineering'
 app.config['MONGO_URI'] = "mongodb+srv://yonghee:dydgml2514@cluster0.zer9c.mongodb.net/software_engineering?retryWrites=true&w=majority"
@@ -16,7 +15,10 @@ def index():
     if 'username' in session:
         diaries = DB.diaries.find().sort('created_time', -1)
         return render_template("main.html", diaries = diaries)
-    return render_template("index.html")
+    return redirect(url_for('login'))
+@app.route('/main')
+def main():
+    return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -49,20 +51,14 @@ def register():
         if user:
             flash("이미 존재하는 ID입니다")
             return redirect(url_for('register'))
-
-        userinfo = {'user_name':username, 'user_password':password}
-
         if not (username and password and passwordcheck):
             flash("모두 입력해주세요")
             return redirect(url_for('register'))
-
-        elif password != passwordcheck:
+        if password != passwordcheck:
             flash("비밀번호를 확인해 주세요")
             return redirect(url_for('register'))
-
-        else:
-            DB.users.insert_one(userinfo)
-            return redirect(url_for('login'))
+        DB.users.insert_one({'user_name':username, 'user_password':password})
+        return redirect(url_for('login'))
     else:
         return render_template('register.html')
 
@@ -74,7 +70,7 @@ def show_diary(diaryId):
 @app.route('/diary/add', methods=['GET', 'POST'])
 def add_diary():
     if 'username' not in session:
-        return render_template('index.html')
+        return render_template('login.html')
     if request.method == 'POST':
         f = request.files['file']
         storage.save_file(f.filename, f)

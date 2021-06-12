@@ -3,32 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>YH Diary</title>
 </head>
-
-<body>
-    <form action="" method="post">
-        <a href="/logout">로그아웃</a>
-    </form>
-
+{% extends 'base2.html' %}
+{% block contents %}
     {% for diary in diaries %}
     {% if session['username'] == diary['name'] %}
-    <article class="diary">
-        <header>
-            <div>
-                <h1><a href="{{url_for('show_diary', diaryId=diary._id)}}">{{diary.title}}</a></h1>
-                <div class="about">작성자 {{ diary['name'] }} <br>작성시간 {{ diary['created_time'].strftime('%Y-%m-%d / %H:%M') }}
-                </div>
+    <div class="post-container">
+        <div class="post">
+            <div class="post-author">
+                <span>{{ diary['name'] }}</span>
             </div>
-        </header>
-        <h3><p class="content">{{ diary['content'] }}</p></h3>
-        <a class="action" href="{{ url_for('edit_diary', diaryId=diary._id) }}">수정</a>
-        <a class="action" href="{{ url_for('delete_diary', diaryId=diary._id) }}">삭제</a>
-    </article>
+            <p class="post-date">{{ diary['created_time'].strftime('%Y-%m-%d / %H:%M') }}</p>
+            <h3 class="post-title"><a href="{{url_for('show_diary', diaryId=diary._id)}}">{{diary.title}}</a></h3>
+            <div class="post-content">
+                {{ diary['content'] }}
+            </div>
+            <br>
+            <p><a class="post-title" href="{{ url_for('edit_diary', diaryId=diary._id) }}">수정 </a>
+            <a class="post-title" href="{{ url_for('delete_diary', diaryId=diary._id) }}"> 삭제</a></p>
+        </div>
+    </div>
     {% endif %}
     {% endfor %}
-    <a class="action" href="{{ url_for('add_diary') }}">글쓰기</a>
-
-</body>
-
+{% endblock %}
 </html>
