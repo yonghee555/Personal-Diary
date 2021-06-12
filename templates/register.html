@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HTML for python flask</title>
+</head>
+ 
+<body>
+    {% block message %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="message">
+        <p style="color: blue">{{messages[0][1]}}</p>
+    </div>
+    {% endif %}
+    {% endwith %}
+    {% endblock message %}
+    <form action = "" method="post">
+        <p>ID : <input type="text" name = "username"></p>
+        <p>비밀번호 : <input type="password" name = "password"></p>
+        <p>비밀번호 확인 : <input type="password" name = "passwordcheck"></p>
+        <p>ID와 비밀번호를 입력하고 생성버튼을 누르세요.<br> <input type = "submit" value = "생성"/> </p>
+    </form>
+</body>
+</html>
