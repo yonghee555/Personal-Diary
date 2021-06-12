@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
 </head>
-{% extends 'base2.html' %}
+{% extends 'base.html' %}
 {% block contents %}
     {% for diary in diaries %}
     {% if session['username'] == diary['name'] %}

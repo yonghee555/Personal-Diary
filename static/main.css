@@ -4,6 +4,7 @@ body{
   color: #555;
   margin: 0;
   font-family: 'Montserrat',sans-serif;
+  background-color: white;
 }
 
 #header{
@@ -84,9 +85,9 @@ a:hover{
 }
 
 .post, .about{
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 60px 10px;
+  padding: 30px 10px;
 }
 .about{
   text-align: center;

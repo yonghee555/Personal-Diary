@@ -1,25 +1,42 @@
 <!DOCTYPE html>
 <head>
-	<title>
-		YH's Diary
-	</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>YH's Diary</title>
+	{% block head %}
+	<link rel="stylesheet" href="static/main.css">
+	{% endblock head %}
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css" />
+	<meta name="theme-color" content="#1abc9c">
 </head>
 <body>
-	<header class="header">
-		<div class="header_title">
+	<div id="header">
+		<div class="container">
+			<a href="{{url_for('index')}}" id="header-title">YH's Diary</a>
 			{% if 'username' in session %}
-			<div class="signin" style="text-align:right">
-				<a href="{{url_for('logout')}}">로그아웃</a>
-			</div>
+			<ul id="header-nav">
+				<li><a href="{{ url_for('add_diary') }}">글쓰기</a></li>
+				<li><a href="{{url_for('logout')}}">로그아웃</a></li>
+			</ul>
 			{% endif %}
-			<a href="{{url_for('index')}}">
-				<h1 style="text-align: center">YH's Diary</h1>
-			</a>
 		</div>
-	</header>
-	<div class="body">
+	</div>
+	<div id="content">
 		{% block contents %}
 
 		{% endblock contents %}
+	</div>
+	<div id="footer">
+		<div class="container">
+			<div class="column">
+				<h4>I AM</h4>
+				<p>
+					Dongguk University <br>
+					Information & Communication Engineering<br>
+					이용희 <br><br>
+					<a href="https://github.com/yonghee555">My Github</a>
+				</p>
+			</div>
+		</div>
 	</div>
 </body>

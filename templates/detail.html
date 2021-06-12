@@ -1,31 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+</head>
 {% extends 'base.html' %}
+{% block head %}
+<link rel="stylesheet" href="../static/main.css">
+{% endblock head%}
 {% block contents %}
-<div class="detail_box">
-	<div class="detail_box_title">
+<div class="post-container">
+	<div class="post-title">
 		<h1>{{diary.title}}</h1>
 	</div>
-	<div class="detail_box_uid">
-		<h5>작성자: {{diary.name}}</h5>
+	<div class="post-author">
+		<h5>작성자 : {{diary.name}}</h5>
 	</div>
-	<div class="detail_box_contents">
-		<h3>{{diary.content}}</h3>
+	<div class="post-content">
+		<h4>{{diary.content}}</h4>
 	</div>
 	{% if diary['filename'] != '' %}
-	<div class="detail_box_image" style="width: 300px; height: 300px; overflow: hidden;">
+	<div style="width: 300px; height: 300px; overflow: hidden;">
 		<p><img src="{{url_for('show_image', filename=diary.filename)}}" width="200"/></p>
 	</div>
 	{% endif %}
+	<p><a class="post-title" href="{{ url_for('edit_diary', diaryId=diary._id) }}">수정 </a>
+		<a class="post-title" href="{{ url_for('delete_diary', diaryId=diary._id) }}"> 삭제</a></p>
+	<p><a class="post-title" href="{{ url_for('index') }}">돌아가기 </a></p>
+
 </div>
-<div class="detail_delete_edit">
-	<form action="{{url_for('edit_diary',diaryId=diary._id)}}">
-		<button type="submit">수정</button>
-	</form>
-	<form action="{{url_for('delete_diary',diaryId=diary._id)}}">
-		<button type="submit">삭제</button>
-	</form>
-</div>
-<br>
-<form action="{{url_for('index')}}">
-	<button type="submit">돌아가기</button>
-</form>	
 {% endblock contents %}
+</html>
