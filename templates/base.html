@@ -8,9 +8,9 @@
 	<header class="header">
 		<div class="header_title">
 			<div class="signin">
-				<a href="{{url_for('signin')}}">회원가입</a>
+				<a href="{{url_for('register')}}">회원가입</a>
 			</div>
-			<a href="{{url_for('post_list')}}">
+			<a href="{{url_for('index')}}">
 				<h1>YH Diary</h1>
 			</a>
 		</div>
@@ -18,7 +18,7 @@
 			{% block user %}
 
 			{% endblock user %}
-			<a href="{{url_for('post_list)}}">일기 목록</a>
+			<a href="{{url_for('index)}}">일기 목록</a>
 		</div>
 	</header>
 	<div class="body">

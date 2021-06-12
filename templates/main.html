@@ -1,14 +1,56 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
-    <title>HTML for python flask</title>
+    <title>YH Diary</title>
 </head>
- 
+
 <body>
-        <form action = "" method="post">
-        <p>로그인 성공 페이지</p>
-        <a href= "/logout">로그아웃</a>
-        </form>
+    <form action="" method="post">
+        <a href="/logout">로그아웃</a>
+    </form>
+
+    {% for diary in diaries %}
+    <article class="diary">
+        <header>
+            <div>
+                <h1><a href="{{url_for('show_diary', diaryId=diary._id)}}">{{diary.title}}</a></h1>
+                <div class="about">작성자 {{ diary['name'] }} <br>작성시간 {{ diary['created_time'].strftime('%Y-%m-%d / %H:%M') }}
+                </div>
+            </div>
+        </header>
+        <p class="content">{{ diary['content'] }}</p>
+        {% if session['username'] == diary['name'] %}
+        <a class="action" href="{{ url_for('edit_diary', diaryId=diary._id) }}">수정</a>
+        <a class="action" href="{{ url_for('delete_diary', diaryId=diary._id) }}">삭제</a>
+        {% endif %}
+
+    </article>
+    {% endfor %}
+    <a class="action" href="{{ url_for('add_diary') }}">글쓰기</a>
+
+    <!-- <table>
+            <thead>
+                <tr>
+                    <td>번호</td>
+                    <td>제목</td>
+                    <td>이름</td>
+                    <td>날짜</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for diary in diaries %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td><a href="{{url_for('show_diary', diaryId=diary._id)}}">{{diary.title}}</a></td>
+                    <td>{{diary.name}}</td>
+                    <td>{{diary.created_time.strftime('%Y-%m-%d')}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table> -->
+
 </body>
+
 </html>
