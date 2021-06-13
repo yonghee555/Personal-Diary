@@ -2,7 +2,16 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
+    <script>
+        function deleteDiary(){
+            var del = confirm("삭제하시겠습니까?");
+            if (del) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+    </script>
 </head>
 {% extends 'base.html' %}
 {% block contents %}
@@ -20,7 +29,7 @@
             </div>
             <br>
             <p><a class="post-title" href="{{ url_for('edit_diary', diaryId=diary._id) }}">수정 </a>
-            <a class="post-title" href="{{ url_for('delete_diary', diaryId=diary._id) }}"> 삭제</a></p>
+            <a class="post-title" onclick="return deleteDiary()" href="{{ url_for('delete_diary', diaryId=diary._id) }}"> 삭제</a></p>
         </div>
     </div>
     {% endif %}
